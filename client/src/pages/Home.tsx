@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Check, Terminal, Code, Zap, Shield, ChevronRight } from "lucide-react";
+import { SyllabusModal } from "@/components/SyllabusModal";
 
 export default function Home() {
   return (
@@ -53,9 +54,7 @@ export default function Home() {
               <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-lg px-8 h-14 shadow-[0_0_20px_rgba(0,255,65,0.3)]">
                 Start Hacking <ChevronRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="border-white/20 hover:bg-white/5 text-lg h-14">
-                View Syllabus
-              </Button>
+              <SyllabusModal />
             </div>
             
             <div className="flex items-center gap-4 text-sm text-muted-foreground font-mono pt-4">
