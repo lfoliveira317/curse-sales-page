@@ -3,8 +3,35 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Check, Terminal, Code, Zap, Shield, ChevronRight } from "lucide-react";
 import { SyllabusModal } from "@/components/SyllabusModal";
+import { ContactForm } from "@/components/ContactForm";
+import { PRODUCTS } from "../../../shared/products";
+import { toast } from "sonner";
 
 export default function Home() {
+  const handleEnroll = async () => {
+    try {
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productId: PRODUCTS[0].id,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create checkout session");
+      }
+
+      const { url } = await response.json();
+      window.location.href = url;
+    } catch (error) {
+      console.error("Checkout error:", error);
+      toast.error("Failed to start checkout. Please try again.");
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground overflow-x-hidden">
       {/* Navigation */}
@@ -240,7 +267,11 @@ export default function Home() {
                   <span className="text-6xl font-bold text-white tracking-tighter">4.99</span>
                 </div>
                 
-                <Button size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-bold h-12 shadow-lg shadow-primary/20">
+                <Button 
+                  size="lg" 
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-bold h-12 shadow-lg shadow-primary/20"
+                  onClick={handleEnroll}
+                >
                   ENROLL NOW
                 </Button>
                 <p className="text-xs text-muted-foreground mt-4">
@@ -250,6 +281,11 @@ export default function Home() {
             </div>
           </Card>
         </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="py-20 container max-w-2xl">
+        <ContactForm />
       </section>
 
       {/* Footer */}

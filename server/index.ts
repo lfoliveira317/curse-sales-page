@@ -16,7 +16,13 @@ async function startServer() {
       ? path.resolve(__dirname, "public")
       : path.resolve(__dirname, "..", "dist", "public");
 
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
   app.use(express.static(staticPath));
+
+  // Register API routes
+  const { registerRoutes } = await import("./routes");
+  registerRoutes(app);
 
   // Handle client-side routing - serve index.html for all routes
   app.get("*", (_req, res) => {
