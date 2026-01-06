@@ -23,14 +23,14 @@ export function ContactForm() {
       // Note: These are placeholder IDs. The user needs to replace them with their actual EmailJS credentials.
       // Service ID, Template ID, Public Key
       await emailjs.send(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID",
+        "service_tvhax2h",
+        "template_eama44x",
         {
           from_name: formData.name,
           from_email: formData.email,
           message: formData.message,
         },
-        "YOUR_PUBLIC_KEY"
+        "jh15proedoS9F8I-D"
       );
 
       toast.success("Message sent successfully!");
